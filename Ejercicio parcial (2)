@@ -1,0 +1,109 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+
+struct datos
+{
+            float altura;
+            char nombre [101];
+};
+
+int main()
+{
+    int opcion;
+    float altura=0;
+    char nombre[101];
+    short indice=0;
+    bool nombrefin=false;
+    struct datos personas [19];
+
+    while (indice<20 && !nombrefin)
+    {
+        printf ("Ingrese Nombre %d (ingrese 'fin' para terminar):\n",(indice+1));
+        scanf("%s",nombre);
+
+        if((strcmp (nombre,"fin")==0))
+            {
+            nombrefin=true;
+            }
+            else{
+                printf ("Ingrese la altura:\n");
+                scanf ("%f",&altura);
+                strcpy( personas[indice].nombre,nombre);
+                personas[indice].altura=altura;
+                indice++;
+                }
+    }
+    if(indice==0)
+        {
+        printf("\n No ingreso ningun Dato");
+        return 0;
+        };
+     do
+    {
+
+        printf("\t\tSeleccione una opcion");
+        printf("\n\n1. Buscar mayor altura");
+        printf("\n2. Buscar nombres por dicha altura");
+        printf("\n3. Salir");
+        printf("\nOpcion: ");
+        scanf("%i",&opcion);
+
+        int indicebusqueda=0;
+        float maxaltura=0;
+        char nombremax[101];
+        float alturateclado;
+        int contadorpersonasaltura=0;
+
+        switch(opcion)
+        {
+        case 1:
+
+            while (indicebusqueda<indice)
+                {
+
+                    if(maxaltura<personas[indicebusqueda].altura){
+                        maxaltura=personas[indicebusqueda].altura;
+                        strcpy(nombremax,personas[indicebusqueda].nombre);
+                    }
+                    indicebusqueda++;
+                }
+
+
+            printf("\nLa mayor altura es: %f ",maxaltura);
+            printf("Nombre: %s \n",nombremax);
+
+            break;
+
+        case 2:
+            printf ("Ingrese la altura:\n");
+            scanf ("%f",&alturateclado);
+            while(indicebusqueda<indice)
+                {
+                if(alturateclado==personas[indicebusqueda].altura)
+                    {
+                    printf("\n\n El nombre es: %s",personas[indicebusqueda].nombre);
+                    contadorpersonasaltura++;
+                    }
+                indicebusqueda++;
+            }
+            if(contadorpersonasaltura==0)
+                {
+                printf("\n\n No se encontraron personas con esa altura \n\n");
+                }
+                    else
+                    {
+                    printf("\n\n Se encontro %d personas con esa altura \n\n",contadorpersonasaltura);
+                    }
+            break;
+
+        case 3:
+            break;
+        default:
+
+         printf("\nSe equivoco de opcion");
+        }
+    }while(opcion!=3);
+
+    return 0;
